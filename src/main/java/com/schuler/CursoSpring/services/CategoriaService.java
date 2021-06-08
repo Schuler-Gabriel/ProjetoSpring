@@ -2,6 +2,7 @@ package com.schuler.CursoSpring.services;
 
 import com.schuler.CursoSpring.domain.Categoria;
 import com.schuler.CursoSpring.repositories.CategoriaRepository;
+import com.schuler.CursoSpring.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
