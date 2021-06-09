@@ -1,10 +1,11 @@
 package com.schuler.CursoSpring.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Pedido implements Serializable {
@@ -13,6 +14,7 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instante;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
@@ -26,6 +28,10 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
 
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
+
+
     public Pedido(){}
 
     public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
@@ -33,6 +39,15 @@ public class Pedido implements Serializable {
         this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    @JsonIgnore
+    public List<Produto> getProdutos(){
+        List<Produto> lista = new ArrayList<>();
+        for (ItemPedido i : itens) {
+            lista.add(i.getProduto());
+        }
+        return lista;
     }
 
     public Integer getId() {
@@ -75,6 +90,14 @@ public class Pedido implements Serializable {
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
 
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -96,4 +119,6 @@ public class Pedido implements Serializable {
             return other.id == null;
         } else return id.equals(other.id);
     }
+
+
 }

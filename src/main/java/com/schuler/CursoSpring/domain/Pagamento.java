@@ -1,5 +1,6 @@
 package com.schuler.CursoSpring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.schuler.CursoSpring.domain.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public abstract class Pagamento implements Serializable {
     private Integer id;
     private Integer estado;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

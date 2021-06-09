@@ -1,7 +1,7 @@
 package com.schuler.CursoSpring.resources;
 
-import com.schuler.CursoSpring.domain.Categoria;
-import com.schuler.CursoSpring.services.CategoriaService;
+import com.schuler.CursoSpring.domain.Pedido;
+import com.schuler.CursoSpring.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/categorias") //end point
-public class CategoriaResource {
+@RequestMapping(value = "/pedidos") //end point
+public class PedidoResource {
 
 	@Autowired
-	private CategoriaService service;
+	private PedidoService service;
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria obj = service.buscar(id);
+		Pedido obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }
