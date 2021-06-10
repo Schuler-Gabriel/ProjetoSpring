@@ -1,5 +1,6 @@
 package com.schuler.CursoSpring.resources;
 
+import com.schuler.CursoSpring.domain.Cliente;
 import com.schuler.CursoSpring.domain.Pedido;
 import com.schuler.CursoSpring.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class PedidoResource {
 	private PedidoService service;
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Pedido obj = service.buscar(id);
+	public ResponseEntity<Pedido> find(@PathVariable Integer id) {
+		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }
